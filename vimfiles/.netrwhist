@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='D:/backupdir'
+let g:netrw_dirhist_2='D:/PopoServer/trunk/3.0/popocloud'
+let g:netrw_dirhist_3='D:/backupdir'
+let g:netrw_dirhist_4='D:/PopoServer/trunk/2.4/popocloud'
+let g:netrw_dirhist_5='D:/PopoServer/trunk/3.0/popocloud'
+let g:netrw_dirhist_6='C:/Documents and Settings/kortide'
+let g:netrw_dirhist_7='C:/Documents and Settings/kortide/.ssh'
