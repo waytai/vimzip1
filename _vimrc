@@ -162,6 +162,16 @@ func SetTitle()
         call append(line(".")+4, "\#########################################################################") 
         call append(line(".")+5, "\#!/bin/bash") 
         call append(line(".")+6, "") 
+    elseif &filetype == 'python' 
+        call setline(1,"\#########################################################################") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: wayne") 
+        call append(line(".")+2, "\# mail: @163.com") 
+        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+4, "\#########################################################################") 
+        call append(line(".")+5, "\#!/bin/python") 
+        call append(line(".")+6, "") 
+
     else 
         call setline(1, "/*************************************************************************") 
         call append(line("."), "    > File Name: ".expand("%")) 
