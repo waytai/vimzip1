@@ -149,8 +149,8 @@ function! Godesk()
     :cd ~
 endfunction
 
-"新建.c,.h,.sh,.java文件，自动插入文件头
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
+"新建.c,.h,.sh,.java,*.py文件，自动插入文件头
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py exec ":call SetTitle()"
 func SetTitle() 
     "如果文件类型为.sh文件 
     if &filetype == 'sh' 
@@ -164,14 +164,14 @@ func SetTitle()
         call append(line(".")+6, "") 
     elseif &filetype == 'python' 
         call setline(1,"\#########################################################################") 
-        call append(line("."), "\# File Name: ".expand("%")) 
-        call append(line(".")+1, "\# Author: wayne") 
-        call append(line(".")+2, "\# mail: @163.com") 
-        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
-        call append(line(".")+4, "\#########################################################################") 
-        call append(line(".")+5, "\#!/bin/python") 
-        call append(line(".")+6, "") 
-
+        call append(line("."), "\# -*- coding:utf-8 -*- ") 
+        call append(line(".")+1, "\# File Name: ".expand("%")) 
+        call append(line(".")+2, "\# Author: wayne") 
+        call append(line(".")+3, "\# mail: @163.com") 
+        call append(line(".")+4, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+5, "\#########################################################################") 
+        call append(line(".")+6, "\#!/bin/python") 
+        call append(line(".")+7, "") 
     else 
         call setline(1, "/*************************************************************************") 
         call append(line("."), "    > File Name: ".expand("%")) 
@@ -190,11 +190,51 @@ func SetTitle()
         call append(line(".")+6, "#include<stdio.h>")
         call append(line(".")+7, "")
     endif
+    if &filetype == 'py'
+        call append(line(".")+7, "")
+    endif
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
 endfunc 
 
+"括号自动补齐
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap { {<CR>}<Esc>O
+autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
+inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap ] <c-r>=ClosePair(']')<CR>
+inoremap } <c-r>=CloseBracket()<CR>
+inoremap " <c-r>=QuoteDelim('"')<CR>
+inoremap ' <c-r>=QuoteDelim("'")<CR>
 
+function ClosePair(char)
+ if getline('.')[col('.') - 1] == a:char
+ return "\<Right>"
+ else
+ return a:char
+ endif
+endf
 
+function CloseBracket()
+ if match(getline(line('.') + 1), '\s*}') < 0
+ return "\<CR>}"
+ else
+ return "\<Esc>j0f}a"
+ endif
+endf
 
-
+function QuoteDelim(char)
+ let line = getline('.')
+ let col = col('.')
+ if line[col - 2] == "\\"
+ "Inserting a quoted quotation mark into the string
+ return a:char
+ elseif line[col - 1] == a:char
+ "Escaping out of the string
+ return "\<Right>"
+ else
+ "Starting a string
+ return a:char.a:char."\<Esc>i"
+ endif
+endf
