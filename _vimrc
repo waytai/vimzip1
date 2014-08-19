@@ -28,7 +28,13 @@ function MyDiff()
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
-colorscheme desert
+"颜色设置"
+syntax enable
+set background=dark
+colorscheme solarized
+"colorscheme desert
+"
+"
 "设置编码自动识别
 set fileencodings=utf-8,gbk,chinese,latin-1
 set ambiwidth=double
@@ -94,12 +100,12 @@ autocmd FileType xml set omnifunc=xmlcomplete
 autocmd FileType java set omnifunc=javacomplete
 
 "pydiction
-let g:pydiction_location='D:\software\Vim\vimfiles\ftplugin\complete-dict'
+let g:pydiction_location='D:\software\vim\vimfiles\ftplugin\complete-dict'
 
 "设置路径
 set path=.,d:/software/Vim
 set path+=e:/platform-tools
-set path+=d:/py/**
+set path+=d:/test/*
 set path+=d:/PopoServer/trunk/PC/Tools/Python27/Lib/**
 "TagList
 let Tlist_Show_One_File=1
@@ -136,7 +142,7 @@ nmap gc <ESC>:cd %:p:h<CR>
 ":command App    :cd d:\PopoServer\trunk\2.4\popocloud\Apps
 :command Gdir30 :cd d:\PopoServer\trunk\3.0\popocloud
 :command App    :cd d:\PopoServer\trunk\3.0\popocloud\Apps
-:command Gexam cd d:\py
+:command Test   :cd d:\test
 
 command  Goto :call Goto()
 command  Godesk :call Godesk()
