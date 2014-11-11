@@ -31,12 +31,13 @@ endfunction
 "颜色设置"
 syntax enable
 set background=dark
-colorscheme solarized
-"colorscheme desert
+""colorscheme solarized
+colorscheme desert
 "
 "
 "设置编码自动识别
 set fileencodings=utf-8,gbk,chinese,latin-1
+
 set ambiwidth=double
 set shortmess=atI "启动页面不显示援助乌干达儿童
 set ruler "显示标尺
@@ -119,6 +120,7 @@ set tags+=.
 "set tags=D:\PopoServer\trunk\2.4\popocloud\tags
 set tags=D:\PopoServer\trunk\3.0\popocloud\tags
 set tags+=D:\PopoServer\trunk\PC\Tools\Python27\tags
+set tags+=E:\work\cloud\tags
 "cscope
 "cs a D:\PopBox\popocloud\cscope.out
 
@@ -138,10 +140,12 @@ nmap sn <ESC>:simalt~n<CR>
 
 nmap gc <ESC>:cd %:p:h<CR>
 "nmap <silent> <C-p> <ESC>:cd d:\PopoServer\trunk\2.4\popocloud<CR>
-:command Gdir24 :cd d:\PopoServer\trunk\2.4\popocloud
+"":command Gdir24 :cd d:\PopoServer\trunk\2.4\popocloud
 ":command App    :cd d:\PopoServer\trunk\2.4\popocloud\Apps
+"
 :command Gdir30 :cd d:\PopoServer\trunk\3.0\popocloud
-:command App    :cd d:\PopoServer\trunk\3.0\popocloud\Apps
+:command Gdir24 :cd d:\PopoServer\trunk\2.4\popocloud
+:command Port   :cd d:\PopoServer\trunk\3.0\popocloud\portal
 :command Test   :cd d:\test
 
 command  Goto :call Goto()
@@ -244,3 +248,32 @@ function QuoteDelim(char)
  return a:char.a:char."\<Esc>i"
  endif
 endf
+
+"C的编译和运行
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    exec "!gcc % -o %<"
+    if has('win32')
+        echo "-------" 
+        echo expand('')
+        exec "! \%<.exe"
+    elseif has('linux')
+        exec "! ./%<"
+    endif
+endfunc
+ 
+"C++的编译和运行
+map <F6> :call CompileRunGpp()<CR>
+func! CompileRunGpp()
+    exec "w"
+    exec "!g++ % -o %<"
+    if has('win32')
+        echo "-------" 
+        echo expand('')
+        exec "! \%<.exe"
+    elseif has('linux')
+        exec "! ./%<"
+    endif
+endfunc
+ 
