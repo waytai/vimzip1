@@ -66,6 +66,12 @@ set nu
 "括号配对情况
 set showmatch
 
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap " ""<ESC>i
+inoremap { {}<ESC>i
+inoremap < <><ESC>i
+
 "代码折叠
 set foldenable
 "set foldmethod=indent
